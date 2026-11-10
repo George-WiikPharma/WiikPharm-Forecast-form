@@ -1,0 +1,326 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Nordic Forecast Form</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+*{box-sizing:border-box}
+:root{--brand:#DE0059;--brand-dark:#B80049;--ink:#1A1A1A;--tint:#FCE6EE;--line:#E6DCE0;--muted:#5A4E53}
+body{margin:0;background:#F7F5F6;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink)}
+button{font-family:inherit;cursor:pointer}
+input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink)}
+input:focus,select:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:3px solid #F08AB0;outline-offset:1px}
+.btn:hover{filter:brightness(.95)}
+header{background:#fff;border-bottom:4px solid var(--brand)}
+.wrap{max-width:980px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;padding-top:18px;padding-bottom:14px}
+.brand{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.brand img{height:54px;width:auto;display:block}
+.kick{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--brand-dark);font-weight:700}
+h1{margin:4px 0 0;font-size:30px;line-height:1.15;font-weight:700}
+.lang{display:flex;border:1.5px solid var(--ink);border-radius:10px;overflow:hidden}
+.lang button{min-height:44px;min-width:64px;border:0;padding:0 16px;font-weight:600;font-size:15px;background:#fff;color:var(--ink)}
+.lang button[aria-pressed=true]{background:var(--ink);color:#fff}
+.prog{padding-bottom:16px}
+.progtxt{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);margin-bottom:6px}
+.bar{height:8px;border-radius:4px;background:#EADFE4;overflow:hidden}
+.bar div{height:8px;background:var(--brand);width:0;transition:width .2s}
+main{padding-top:24px;padding-bottom:64px;display:flex;flex-direction:column;gap:24px}
+.card{background:#fff;border-radius:16px;padding:24px;border:1px solid var(--line);display:flex;flex-direction:column;gap:16px}
+h2{margin:0;font-size:22px;display:flex;gap:12px;align-items:center}
+h2 span{width:32px;height:32px;border-radius:16px;background:var(--ink);color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;flex:none}
+.sub{margin:0;font-size:15px;line-height:1.45;color:#4A3F44}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.steps div{display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.4}
+.steps b{flex:none;width:32px;height:32px;border-radius:16px;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center}
+.tip{background:var(--tint);border-radius:10px;padding:12px 14px;font-size:15px;line-height:1.45}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.f{display:flex;flex-direction:column;gap:6px}
+.f label{font-weight:600;font-size:15px}
+.small{font-size:13px;color:var(--muted)}
+.txt,select,textarea{min-height:48px;border:1.5px solid #9A8A90;border-radius:10px;padding:0 12px;background:#fff;width:100%}
+textarea{padding:10px 12px;resize:vertical}
+.prod{background:#fff;border-radius:16px;border:2px solid var(--line);padding:20px;display:flex;flex-direction:column;gap:14px}
+.prod.done{border-color:var(--brand)}
+.ph{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:space-between;align-items:flex-start}
+.ph .l{flex:1 1 340px}
+.ln{font-size:13px;color:var(--muted);font-weight:600}
+.pn{font-size:18px;font-weight:600;line-height:1.3}
+.un{font-size:14px;color:var(--muted)}
+.none{min-height:44px;padding:0 16px;border-radius:22px;font-weight:600;font-size:15px;border:1.5px solid #6B5E64;background:#fff;color:var(--ink)}
+.none[aria-pressed=true]{background:var(--ink);color:#fff}
+.hint{background:var(--tint);border-radius:10px;padding:10px 12px;font-size:14px;line-height:1.4}
+.num{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.num button{width:48px;height:48px;border-radius:10px;border:1.5px solid var(--brand);background:#fff;color:var(--brand-dark);font-size:24px;font-weight:600}
+.num input{width:100px;min-height:48px;text-align:center;font-size:20px;font-weight:600;border:2px solid var(--brand);border-radius:10px}
+.num input:disabled{background:#F1EBED}
+.chk{display:flex;gap:8px;align-items:center;font-size:15px;min-height:44px}
+.chk input{width:22px;height:22px;accent-color:var(--brand)}
+.link{align-self:flex-start;min-height:44px;padding:0 4px;border:0;background:transparent;color:var(--brand-dark);font-weight:600;font-size:15px;text-decoration:underline}
+.more{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;background:#F7F5F6;border-radius:12px;padding:14px}
+.more .wide{grid-column:1/-1}
+.split{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{min-height:48px;padding:0 16px;border-radius:24px;font-size:15px;font-weight:600;border:2px solid var(--brand);background:#fff;color:var(--brand-dark)}
+.chip[aria-pressed=true]{background:var(--brand);color:#fff}
+.other{border:2px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px;background:#FFFDFD}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:14px}
+th{background:var(--tint);text-align:left;padding:10px 12px}
+td{padding:9px 12px;border-top:1px solid #EFE6EA}
+td.r,th.r{text-align:right;font-weight:600}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+.warn{background:#FFF4D6;border-radius:10px;padding:12px 14px;font-size:15px;line-height:1.45}
+.acts{display:flex;flex-wrap:wrap;gap:12px}
+.primary{min-height:52px;padding:0 24px;border-radius:12px;background:var(--brand);color:#fff;font-weight:700;font-size:17px;display:inline-flex;align-items:center;text-decoration:none}
+.second{min-height:52px;padding:0 20px;border-radius:12px;border:2px solid var(--brand);background:#fff;color:var(--brand-dark);font-weight:700;font-size:16px}
+</style>
+<header>
+<div class="wrap top"><div class="brand"><img src="data:image/png;base64,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" alt="Wiik Pharma"><div><div class="kick" id="kicker"></div><h1 id="title"></h1></div></div>
+<div class="lang" role="group" aria-label="Language"><button id="bEn" aria-pressed="true">English</button><button id="bNo" aria-pressed="false">Norsk</button></div></div>
+<div class="wrap prog"><div class="progtxt"><span id="progLbl"></span><span id="progTxt"></span></div><div class="bar"><div id="progBar"></div></div></div>
+</header>
+<main class="wrap" id="app"></main>
+
+<script>
+var FORM = "nordic"; /* "tender" = Norway, agreement 2624b; "nordic" = all Nordic customers */
+var FEEDBACK_TO = "info@wiikpharma.dk";
+var NORDIC = FORM === 'nordic';
+
+var P = {
+ gp:{name:'GalliaPharm Ge-68/Ga-68 generator (50 mCi / 1.85 GBq)',unit:{en:'generator',no:'generator'},step:1,per:'year',line:'1.1',hint:{en:'Count generators per year. A new generator every 6 months = 2 per year.',no:'Tell generatorer per år. Ny generator hver 6. måned = 2 per år.'}},
+ ill:{name:'Illuccix cold kit (Ga-68 PSMA-11, gozetotide)',unit:{en:'kit',no:'sett'},step:1,line:'2.2',hint:{en:'Count the kits you use, not the patients.',no:'Tell sett dere bruker, ikke pasienter.'}},
+ sam:{name:'Sammibi (sestamibi) 6-vial pack, all uses together',unit:{en:'pack of 6 vials',no:'pakke à 6 hetteglass'},step:.5,line:'9.1 / 10.1 / 12.5',split:true,hint:{en:'Write the total for all uses. 1 pack every 2 months = 0.5 per month. You can split it by use under "More details".',no:'Skriv totalen for all bruk. 1 pakke hver 2. måned = 0,5 per måned. Dere kan dele opp etter bruk under «Flere detaljer».'}},
+ tek:{name:'Tektrotyd kit (tumour detection, V09I)',unit:{en:'kit',no:'sett'},step:1,line:'12.1',hint:{en:'Count kits per month.',no:'Tell sett per måned.'}},
+ iod:{name:'Iodopol I-131 hard capsules (therapy, 100-8,000 MBq)',unit:{en:'capsule',no:'kapsel'},step:1,per:'week',iod:true,line:'20.1',hint:{en:'Iodopol is ordered on a weekly schedule. Give the total number of capsules per week, the capsule activity and the days below.',no:'Iodopol bestilles etter en ukentlig plan. Oppgi totalt antall kapsler per uke, kapselaktivitet og dager nedenfor.'}},
+ mi2:{name:'I-131 sodium iodide solution (MI-2)',unit:{en:'vial',no:'hetteglass'},step:1,hint:{en:'Count vials per month.',no:'Tell hetteglass per måned.'}},
+ nano:{name:'Nano-Scan (nanocolloid) kit',unit:{en:'kit',no:'sett'},step:1,hint:{en:'Count kits per month.',no:'Tell sett per måned.'}},
+ mi4d:{name:'I-131 capsules, diagnostic (MI-4-D)',unit:{en:'capsule',no:'kapsel'}},
+ mbrida:{name:'MBrIDATech kit (6 vials)',unit:{en:'pack of 6 vials',no:'pakke à 6 hetteglass'}},
+ mag3:{name:'Renoscint MAG3 kit',unit:{en:'kit',no:'sett'}},
+ exam:{name:'Medi-Exametazim kit (6 vials)',unit:{en:'pack of 6 vials',no:'pakke à 6 hetteglass'}},
+ mibg:{name:'I-131 MIBG for therapy (MI-10-T)',unit:{en:'dose',no:'dose'}},
+ poltech:{name:'Poltechnet Tc-99m generator',unit:{en:'generator',no:'generator'}},
+ mtck:{name:'Polatom Tc-99m kits (MTcK)',unit:{en:'kit',no:'sett'}},
+ c4pep:{name:'C4-GA68-PEP synthesis cassette (Ga-68 peptides)',unit:{en:'cassette',no:'kassett'}},
+ c4fapi:{name:'C4-GA-FAPI synthesis cassette',unit:{en:'cassette',no:'kassett'}},
+ lu:{name:'Lu-177 chloride n.c.a. (non-GMP)',unit:{en:'vial',no:'hetteglass'}},
+ hcl:{name:'Ultrapure HCl 0.1 M elution solution',unit:{en:'bottle',no:'flaske'}},
+ elugen:{name:'EluGen system / tubing set',unit:{en:'set',no:'sett'}},
+ yttriga:{name:'Yttriga (Y-90 chloride)',unit:{en:'vial',no:'hetteglass'}}
+};
+var MAIN_IDS = NORDIC ? ['gp','ill','sam','iod','mi2','nano'] : ['gp','ill','sam','tek','iod'];
+var ALL_IDS = Object.keys(P);
+var OTHER_IDS = ALL_IDS.filter(function(k){return MAIN_IDS.indexOf(k)<0;});
+var DAYS = {en:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],no:['Man','Tir','Ons','Tor','Fre','Lør','Søn']};
+var DAYS_EN = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+var PATTERNS = {en:['Every week','Every second week','Irregular / on demand'],no:['Hver uke','Annenhver uke','Uregelmessig / ved behov']};
+var BANDS = {en:['Less than 1 per month','1–5 per month','6–20 per month','More than 20 per month','Not sure'],no:['Under 1 per måned','1–5 per måned','6–20 per måned','Over 20 per måned','Usikker']};
+var HOSPITALS = ['Oslo universitetssykehus - Rikshospitalet','Oslo universitetssykehus - Ullevål','Oslo universitetssykehus - Radiumhospitalet','Akershus universitetssykehus','Haukeland universitetssjukehus (Helse Bergen)','Stavanger universitetssjukehus (Helse Stavanger)','Sykehuset Telemark, Skien','Sykehuset Østfold, Kalnes','St. Olavs hospital, Trondheim','Universitetssykehuset Nord-Norge, Tromsø','Other / Annet'];
+var OTHER_H = 'Other / Annet';
+var COUNTRIES = {en:['Denmark','Sweden','Norway','Finland','Iceland','Other'],no:['Danmark','Sverige','Norge','Finland','Island','Annet']};
+var ROLES = {en:['Department head','Chief physicist','Nuclear medicine physician','Radiopharmacist','Technologist','Procurement','Other'],no:['Avdelingsleder','Overfysiker','Nukleærmedisiner','Radiofarmasøyt','Bioingeniør','Innkjøp','Annet']};
+
+var TX = {
+ en:{kicker: NORDIC?'Wiik Pharma ApS · Nordic customers':'National agreement 2624b · Sykehusinnkjøp HF · Wiik Pharma ApS', title:'How much do you use per month?', progress:'Progress',
+  intro: NORDIC?'So that we have the right products in stock at the right time, please tell us how much your department uses per month. It takes about 5 minutes.':'The national agreement for radiopharmaceuticals starts on 15 November 2026. So that we have the right stock at the right time, please tell us how many units your department uses per month. It takes about 5 minutes.',
+  how1: NORDIC?'Choose your country, site and department.':'Choose your hospital and department.', how2:'For each product, enter average use: last 12 months, then expected next 12 months. Most products per month; GalliaPharm generators per year; Iodopol per week.', how3:'Press the e-mail button at the end. Nothing is sent until you do.',
+  tipLabel:'Tip:', decimalTip:'Use less than one unit a month? Write a decimal. One pack every 2 months = 0.5. Do not use a product? Tap "We do not use this".',
+  s1:'About you', hospital:'Hospital', country:'Country', site:'Hospital or site', choose:'Choose…', hospitalOther:'Hospital name', dept:'Department', deptPh:'e.g. Nuclear medicine', role:'Your role', noNames:'No personal name needed.',
+  s2: NORDIC?'Your main products':'Products in the national agreement', s2sub: NORDIC?'The products most customers order from us. Leave a field empty if you do not know.':'The products Wiik Pharma supplies under agreement 2624b. Leave a field empty if you do not know.',
+  line:'Line', unit:'Unit', last:'Average per month, last 12 months', next:'Expected per month, next 12 months', perMonth:'per month', perYear:'per year', perWeek:'per week', lastY:'Total per year, last 12 months', nextY:'Expected per year, next 12 months', lastW:'Average per week, last 12 months', nextW:'Expected per week, next 12 months',
+  iodAct:'Capsule activity (write in MBq or GBq)', iodActSub:'Type the usual capsule activity in either box. The other box fills in automatically (1 GBq = 1,000 MBq).', iodActMsg:'Required: please enter the capsule activity.', req:'Required', iodDeliv:'Preferred delivery day(s)', iodUse:'Intended use day(s) (treatment days)', iodPattern:'How often do you order?', iodDays:'Tap all days that apply.', iodNoteLbl:'Weekly schedule (optional)', iodNoteHint:'e.g. delivery Monday for use Tuesday and Wednesday', same:'Expect the same as last 12 months', minus:'Decrease', plus:'Increase',
+  noneOff:'We do not use this', noneOn:'Not used ✓ (tap to undo)', more:'More details (optional)', less:'Hide details', pat:'Patients or examinations per month (only if units unknown)', sup:'Current supplier (optional)', note:'Planned changes or comments (new service, new equipment, more patients)',
+  splitHead:'Optional: split the Sammibi total by use (packs per month, last 12 months)', sp1:'Thyroid / parathyroid (V09F)', sp2:'Heart (V09G)', sp3:'Tumour detection (V09I)',
+  s3:'Other products you use', s3sub: NORDIC?'Which of these do you also use? Tap all that apply. For each one, tell us roughly how much per month.':'Besides the agreement products, which of these do you use? Tap all that apply. For each one, tell us roughly how much per month.', custom:'Another product not listed (optional)',
+  band:'Roughly how much per month?', bandPick:'Choose…',
+  s4:'Review and send', general:'Anything else we should know?', generalPh:'e.g. a new service from 2027, a second generator, planned equipment changes', change25:'Please tell us early if your use is expected to change by 25 % or more. We use the figures only to plan supply and stock.',
+  product:'Product', lastShort:'Last 12 m', nextShort:'Next 12 m', email:'Send by e-mail', download:'Download as file', copy:'Copy summary', copied:'Copied ✓',
+  privacy:'The e-mail button opens a draft in your own mail program: check it and press send. Wiik Pharma uses the figures only for supply and stock planning. No personal data is collected.',
+  answered:'products answered', missing:'Not yet answered: ', allDone:'All main products answered. Thank you!', zero:'0 (not used)', empty:'–', csvHead:'Group | Line | Product | Unit | Period | Last 12 months/period | Next 12 months/period | Volume band (other products) | Patients/exams per month | Current supplier | Comment'},
+ no:{kicker: NORDIC?'Wiik Pharma ApS · Nordiske kunder':'Nasjonal avtale 2624b · Sykehusinnkjøp HF · Wiik Pharma ApS', title:'Hvor mye bruker dere per måned?', progress:'Fremdrift',
+  intro: NORDIC?'For å ha riktige produkter på lager til riktig tid ber vi dere oppgi hvor mye avdelingen bruker per måned. Det tar ca. 5 minutter.':'Den nasjonale avtalen for radiofarmaka starter 15. november 2026. For å ha riktig lager til riktig tid ber vi dere oppgi hvor mange enheter avdelingen bruker per måned. Det tar ca. 5 minutter.',
+  how1: NORDIC?'Velg land, sykehus og avdeling.':'Velg sykehus og avdeling.', how2:'Oppgi gjennomsnittlig forbruk for hvert produkt: siste 12 måneder, deretter forventet for neste 12. De fleste produkter per måned; GalliaPharm-generatorer per år; Iodopol per uke.', how3:'Trykk e-postknappen til slutt. Ingenting sendes før dere gjør det.',
+  tipLabel:'Tips:', decimalTip:'Bruker dere mindre enn én enhet i måneden? Skriv et desimaltall. Én pakke hver 2. måned = 0,5. Bruker dere ikke produktet? Trykk «Vi bruker ikke dette».',
+  s1:'Om dere', hospital:'Sykehus', country:'Land', site:'Sykehus eller enhet', choose:'Velg…', hospitalOther:'Sykehusets navn', dept:'Avdeling', deptPh:'f.eks. Nukleærmedisin', role:'Deres rolle', noNames:'Personnavn er ikke nødvendig.',
+  s2: NORDIC?'Hovedprodukter':'Produkter i den nasjonale avtalen', s2sub: NORDIC?'Produktene de fleste kunder bestiller hos oss. La feltet stå tomt hvis dere ikke vet.':'Produktene Wiik Pharma leverer under avtale 2624b. La feltet stå tomt hvis dere ikke vet.',
+  line:'Linje', unit:'Enhet', last:'Snitt per måned, siste 12 måneder', next:'Forventet per måned, neste 12 måneder', perMonth:'per måned', perYear:'per år', perWeek:'per uke', lastY:'Totalt per år, siste 12 måneder', nextY:'Forventet per år, neste 12 måneder', lastW:'Snitt per uke, siste 12 måneder', nextW:'Forventet per uke, neste 12 måneder',
+  iodAct:'Kapselaktivitet (skriv i MBq eller GBq)', iodActSub:'Skriv vanlig kapselaktivitet i en av boksene. Den andre fylles ut automatisk (1 GBq = 1 000 MBq).', iodActMsg:'Obligatorisk: oppgi kapselaktivitet.', req:'Obligatorisk', iodDeliv:'Ønsket leveringsdag(er)', iodUse:'Planlagt bruksdag(er) (behandlingsdager)', iodPattern:'Hvor ofte bestiller dere?', iodDays:'Trykk på alle dager som passer.', iodNoteLbl:'Ukeplan (valgfritt)', iodNoteHint:'f.eks. levering mandag for bruk tirsdag og onsdag', same:'Forventer det samme som siste 12 måneder', minus:'Mindre', plus:'Mer',
+  noneOff:'Vi bruker ikke dette', noneOn:'Ikke i bruk ✓ (trykk for å angre)', more:'Flere detaljer (valgfritt)', less:'Skjul detaljer', pat:'Pasienter eller undersøkelser per måned (kun hvis enheter er ukjent)', sup:'Nåværende leverandør (valgfritt)', note:'Planlagte endringer eller kommentarer (ny tjeneste, nytt utstyr, flere pasienter)',
+  splitHead:'Valgfritt: del Sammibi-totalen etter bruk (pakker per måned, siste 12 måneder)', sp1:'Skjoldbruskkjertel / biskjoldbrusk (V09F)', sp2:'Hjerte (V09G)', sp3:'Tumordeteksjon (V09I)',
+  s3:'Andre produkter dere bruker', s3sub: NORDIC?'Hvilke av disse bruker dere også? Trykk på alle som passer. For hver av dem: oppgi omtrent hvor mye per måned.':'Ved siden av avtaleproduktene: hvilke av disse bruker dere? Trykk på alle som passer. For hver av dem: oppgi omtrent hvor mye per måned.', custom:'Annet produkt som ikke er nevnt (valgfritt)',
+  band:'Omtrent hvor mye per måned?', bandPick:'Velg…',
+  s4:'Kontroller og send', general:'Noe annet vi bør vite?', generalPh:'f.eks. ny tjeneste fra 2027, en generator til, planlagte utstyrsendringer', change25:'Si fra tidlig hvis forbruket ventes å endre seg med 25 % eller mer. Tallene brukes kun til å planlegge leveranser og lager.',
+  product:'Produkt', lastShort:'Siste 12 mnd', nextShort:'Neste 12 mnd', email:'Send på e-post', download:'Last ned som fil', copy:'Kopier oppsummering', copied:'Kopiert ✓',
+  privacy:'E-postknappen åpner et utkast i deres eget e-postprogram: les gjennom og trykk send. Wiik Pharma bruker tallene kun til å planlegge leveranser og lager. Ingen personopplysninger samles inn.',
+  answered:'produkter besvart', missing:'Ikke besvart ennå: ', allDone:'Alle hovedprodukter er besvart. Takk!', zero:'0 (ikke i bruk)', empty:'–', csvHead:'Group | Line | Product | Unit | Period | Last 12 months/period | Next 12 months/period | Volume band (other products) | Patients/exams per month | Current supplier | Comment'}
+};
+var S = {lang:'en',hospital:'',hospitalOther:'',country:'',dept:'',role:'',customName:'',general:'',rows:{}};
+function row(id){ if(!S.rows[id]) S.rows[id]={none:false,last:'',same:true,next:'',pat:'',note:'',sup:'',more:false,use:false,band:'',sp1:'',sp2:'',sp3:'',mbq:'',gbq:'',req:id==='iod',dDays:[],uDays:[],pattern:''}; return S.rows[id]; }
+function perKey(id){ return (P[id]&&P[id].per)||'month'; }
+function perWord(id){ var k=perKey(id); return T()[k==='year'?'perYear':k==='week'?'perWeek':'perMonth']; }
+function perEn(id){ var k=perKey(id); return k==='year'?'per year':k==='week'?'per week':'per month'; }
+function T(){ return TX[S.lang]; }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function nv(r){ return r.same ? r.last : r.next; }
+function done(r){ return r.none || (r.last !== '' && (!r.req || r.mbq !== '')); }
+function num(v){ var n=parseFloat(String(v).replace(',','.')); return isNaN(n)?0:n; }
+function fmt(n){ return String(Math.round(n*100)/100); }
+function bandLabel(r){ return r.band===''?'':BANDS[S.lang][+r.band]; }
+
+function numField(id,field,label,step){
+  var r=row(id), t=T(), isNext=field==='next';
+  var val = isNext ? nv(r) : r.last, dis = isNext && r.same;
+  return '<div class="f"><label for="'+id+'-'+field+'">'+label+'</label><div class="num">'+
+   '<button type="button" data-act="dec" data-id="'+id+'" data-f="'+field+'" data-step="'+step+'" aria-label="'+t.minus+'">&minus;</button>'+
+   '<input id="'+id+'-'+field+'" data-in="'+field+'" data-id="'+id+'" type="text" inputmode="decimal" placeholder="0" value="'+esc(val)+'"'+(dis?' disabled':'')+'>'+
+   '<button type="button" data-act="inc" data-id="'+id+'" data-f="'+field+'" data-step="'+step+'" aria-label="'+t.plus+'">+</button>'+
+   '<span class="un">'+perWord(id)+'</span></div>'+
+   (isNext?'<label class="chk"><input type="checkbox" data-act="same" data-id="'+id+'"'+(r.same?' checked':'')+'>'+t.same+'</label>':'')+'</div>';
+}
+function chipRow(act,id,labels,keys,sel){
+  return '<div class="chips">'+labels.map(function(lb,i){var on=sel.indexOf(keys[i])>=0;return '<button type="button" class="chip" data-act="'+act+'" data-id="'+id+'" data-v="'+esc(keys[i])+'" aria-pressed="'+on+'">'+(on?'✓ ':'')+esc(lb)+'</button>';}).join('')+'</div>';
+}
+function iodBlock(id){
+  var r=row(id), t=T(), l=S.lang;
+  var h='<div class="more" style="display:flex;flex-direction:column;gap:16px">';
+  h+='<div class="f"><label>'+t.iodAct+' <span style="color:var(--brand-dark)">* '+t.req+'</span></label><span class="small">'+t.iodActSub+'</span><div class="split">'+
+    '<div class="f"><label for="'+id+'-mbq" style="font-weight:500;font-size:14px">MBq</label><input class="txt" id="'+id+'-mbq" data-in="mbq" data-id="'+id+'" inputmode="decimal" required aria-required="true" placeholder="e.g. 1500" value="'+esc(r.mbq)+'"></div>'+
+    '<div class="f"><label for="'+id+'-gbq" style="font-weight:500;font-size:14px">GBq</label><input class="txt" id="'+id+'-gbq" data-in="gbq" data-id="'+id+'" inputmode="decimal" required aria-required="true" placeholder="e.g. 1.5" value="'+esc(r.gbq)+'"></div></div>'+
+    (r.mbq===''?'<span class="small" style="color:var(--brand-dark)" id="'+id+'-actmsg">'+t.iodActMsg+'</span>':'')+'</div>';
+  h+='<div class="f"><label>'+t.iodDeliv+'</label><span class="small">'+t.iodDays+'</span>'+chipRow('dday',id,DAYS[l],DAYS_EN,r.dDays)+'</div>';
+  h+='<div class="f"><label>'+t.iodUse+'</label><span class="small">'+t.iodDays+'</span>'+chipRow('uday',id,DAYS[l],DAYS_EN,r.uDays)+'</div>';
+  h+='<div class="f" style="max-width:360px"><label for="'+id+'-pat2">'+t.iodPattern+'</label><select id="'+id+'-pat2" data-in="pattern" data-id="'+id+'"><option value="">'+t.choose+'</option>'+PATTERNS[l].map(function(x,i){return '<option value="'+i+'"'+(r.pattern===String(i)?' selected':'')+'>'+x+'</option>';}).join('')+'</select></div>';
+  return h+'</div>';
+}
+function iodText(r){
+  return '   Iodopol schedule: capsule activity='+(r.mbq!==''?r.mbq+' MBq ('+r.gbq+' GBq)':'-')+'; delivery days='+(r.dDays.join(',')||'-')+'; use days='+(r.uDays.join(',')||'-')+'; order pattern='+(r.pattern===''?'-':PATTERNS.en[+r.pattern])+'\n';
+}
+function mainCard(id){
+  var p=P[id], r=row(id), t=T(), l=S.lang;
+  var h='<div class="prod'+(done(r)?' done':'')+'" data-card="'+id+'"><div class="ph"><div class="l">'+(p.line&&!NORDIC?'<div class="ln">'+t.line+' '+p.line+'</div>':'')+'<div class="pn">'+esc(p.name)+'</div><div class="un">'+t.unit+': '+p.unit[l]+'</div></div>'+
+   '<button type="button" class="none" data-act="none" data-id="'+id+'" aria-pressed="'+r.none+'">'+(r.none?t.noneOn:t.noneOff)+'</button></div>';
+  if(!r.none){
+   h+='<div class="hint">'+p.hint[l]+'</div><div class="grid">'+numField(id,'last',p.per==='year'?t.lastY:p.per==='week'?t.lastW:t.last,p.step)+numField(id,'next',p.per==='year'?t.nextY:p.per==='week'?t.nextW:t.next,p.step)+'</div>'+(p.iod?iodBlock(id):'')+
+   '<button type="button" class="link" data-act="more" data-id="'+id+'" aria-expanded="'+r.more+'">'+(r.more?t.less:t.more)+'</button>';
+   if(r.more){
+    h+='<div class="more">';
+    if(p.split) h+='<div class="f wide"><label>'+t.splitHead+'</label><div class="split">'+
+      ['sp1','sp2','sp3'].map(function(k){return '<div class="f"><label for="'+id+'-'+k+'" style="font-weight:500;font-size:14px">'+t[k]+'</label><input class="txt" id="'+id+'-'+k+'" data-in="'+k+'" data-id="'+id+'" inputmode="decimal" value="'+esc(r[k])+'"></div>';}).join('')+'</div></div>';
+    h+='<div class="f"><label for="'+id+'-pat">'+t.pat+'</label><input class="txt" id="'+id+'-pat" data-in="pat" data-id="'+id+'" inputmode="decimal" value="'+esc(r.pat)+'"></div>'+
+    '<div class="f"><label for="'+id+'-sup">'+t.sup+'</label><input class="txt" id="'+id+'-sup" data-in="sup" data-id="'+id+'" value="'+esc(r.sup)+'"></div>'+
+    '<div class="f wide"><label for="'+id+'-note">'+t.note+'</label><textarea id="'+id+'-note" rows="2" data-in="note" data-id="'+id+'">'+esc(r.note)+'</textarea></div></div>';
+   }
+  }
+  return h+'</div>';
+}
+function otherCard(id,name,unit){
+  var r=row(id), t=T();
+  return '<div class="other"><div><div class="pn" style="font-size:17px">'+esc(name)+'</div>'+(unit?'<div class="un">'+t.unit+': '+esc(unit)+'</div>':'')+'</div><div class="grid">'+
+   '<div class="f"><label for="'+id+'-band">'+t.band+'</label><select id="'+id+'-band" data-in="band" data-id="'+id+'"><option value="">'+t.bandPick+'</option>'+BANDS[S.lang].map(function(b,i){return '<option value="'+i+'"'+(r.band===String(i)?' selected':'')+'>'+b+'</option>';}).join('')+'</select></div>'+
+   '<div class="f"><label for="'+id+'-sup">'+t.sup+'</label><input class="txt" id="'+id+'-sup" data-in="sup" data-id="'+id+'" value="'+esc(r.sup)+'"></div></div></div>';
+}
+function build(){
+  var t=T(), l=S.lang, h='';
+  document.documentElement.lang=l;
+  document.getElementById('kicker').textContent=t.kicker;
+  document.getElementById('title').textContent=t.title;
+  document.getElementById('progLbl').textContent=t.progress;
+  document.getElementById('bEn').setAttribute('aria-pressed',l==='en');
+  document.getElementById('bNo').setAttribute('aria-pressed',l==='no');
+  h+='<section class="card"><p style="margin:0;font-size:18px;line-height:1.5">'+t.intro+'</p><div class="steps"><div><b>1</b><span>'+t.how1+'</span></div><div><b>2</b><span>'+t.how2+'</span></div><div><b>3</b><span>'+t.how3+'</span></div></div><div class="tip"><strong>'+t.tipLabel+'</strong> '+t.decimalTip+'</div></section>';
+  h+='<section class="card"><h2><span>1</span>'+t.s1+'</h2><div class="grid">';
+  if(NORDIC){
+   h+='<div class="f"><label for="ctry">'+t.country+'</label><select id="ctry" data-in="country"><option value="">'+t.choose+'</option>'+COUNTRIES.en.map(function(x,i){return '<option value="'+x+'"'+(S.country===x?' selected':'')+'>'+COUNTRIES[l][i]+'</option>';}).join('')+'</select></div>'+
+      '<div class="f"><label for="hospo">'+t.site+'</label><input class="txt" id="hospo" data-in="hospitalOther" value="'+esc(S.hospitalOther)+'"></div>';
+  } else {
+   h+='<div class="f"><label for="hosp">'+t.hospital+'</label><select id="hosp" data-in="hospital"><option value="">'+t.choose+'</option>'+HOSPITALS.map(function(x){return '<option'+(S.hospital===x?' selected':'')+'>'+esc(x)+'</option>';}).join('')+'</select></div>'+
+      (S.hospital===OTHER_H?'<div class="f"><label for="hospo">'+t.hospitalOther+'</label><input class="txt" id="hospo" data-in="hospitalOther" value="'+esc(S.hospitalOther)+'"></div>':'');
+  }
+  h+='<div class="f"><label for="dept">'+t.dept+'</label><input class="txt" id="dept" data-in="dept" placeholder="'+esc(t.deptPh)+'" value="'+esc(S.dept)+'"></div>'+
+   '<div class="f"><label for="role">'+t.role+'</label><select id="role" data-in="role"><option value="">'+t.choose+'</option>'+ROLES.en.map(function(x,i){return '<option value="'+x+'"'+(S.role===x?' selected':'')+'>'+ROLES[l][i]+'</option>';}).join('')+'</select><span class="small">'+t.noNames+'</span></div></div></section>';
+  h+='<section style="display:flex;flex-direction:column;gap:14px"><div><h2><span>2</span>'+t.s2+'</h2><p class="sub" style="margin-top:6px">'+t.s2sub+'</p></div>'+MAIN_IDS.map(mainCard).join('')+'</section>';
+  h+='<section class="card"><div><h2><span>3</span>'+t.s3+'</h2><p class="sub" style="margin-top:6px">'+t.s3sub+'</p></div><div class="chips" role="group" aria-label="'+t.s3+'">'+
+   OTHER_IDS.map(function(k){var u=row(k).use;return '<button type="button" class="chip" data-act="use" data-id="'+k+'" aria-pressed="'+u+'">'+(u?'✓ ':'+ ')+esc(P[k].name)+'</button>';}).join('')+'</div>'+
+   '<div class="f" style="max-width:460px"><label for="cust">'+t.custom+'</label><input class="txt" id="cust" data-in="customName" value="'+esc(S.customName)+'"></div>'+
+   OTHER_IDS.filter(function(k){return row(k).use;}).map(function(k){return otherCard(k,P[k].name,P[k].unit[l]);}).join('')+
+   (S.customName.trim()?otherCard('custom',S.customName.trim(),''):'')+'</section>';
+  h+='<section class="card"><h2><span>4</span>'+t.s4+'</h2><div class="f"><label for="gen">'+t.general+'</label><textarea id="gen" rows="3" data-in="general" placeholder="'+esc(t.generalPh)+'">'+esc(S.general)+'</textarea></div>'+
+   '<div class="warn">'+t.change25+'</div><div class="tw"><table><thead><tr><th>'+t.product+'</th><th class="r">'+t.lastShort+'</th><th class="r">'+t.nextShort+'</th></tr></thead><tbody id="sumBody"></tbody></table></div>'+
+   '<div class="small" id="missing" style="font-size:14px"></div><div class="acts"><a class="primary btn" id="mail" href="#">'+t.email+'</a><button type="button" class="second btn" data-act="copy" id="copyBtn">'+t.copy+'</button></div>'+
+   '<p class="small" style="margin:0;line-height:1.5">'+t.privacy+'</p>'+
+   '<p class="small" style="margin:0;line-height:1.5">'+(S.lang==='no'?'Åpner ikke e-postknappen et utkast? Trykk «Kopier oppsummering» og send teksten til ':'If the e-mail button does not open a draft, press "Copy summary" and send the text to ')+'<strong style="user-select:all">'+FEEDBACK_TO+'</strong>.</p></section>';
+  document.getElementById('app').innerHTML=h;
+  derive();
+}
+function collect(){
+  var l=S.lang, out=[];
+  MAIN_IDS.forEach(function(k){var r=row(k);out.push({id:k,g:NORDIC?'Main':'Tender 2624b',line:NORDIC?'':(P[k].line||''),name:P[k].name,unit:P[k].unit[l],r:r,none:r.none,other:false});});
+  OTHER_IDS.forEach(function(k){var r=row(k);if(r.use)out.push({g:'Other',line:'',name:P[k].name,unit:P[k].unit[l],r:r,none:false,other:true});});
+  if(S.customName.trim())out.push({g:'Other',line:'',name:S.customName.trim(),unit:'',r:row('custom'),none:false,other:true});
+  return out;
+}
+function siteText(){ return NORDIC ? (S.country+' / '+S.hospitalOther) : (S.hospital===OTHER_H?S.hospitalOther:S.hospital); }
+function summaryText(){
+  var t='Forecast form '+(NORDIC?'Nordic':'2624b')+' - use per product (period in table)\n'+(NORDIC?'Country / site: ':'Hospital: ')+siteText()+'\nDepartment: '+S.dept+'\nRole: '+S.role+'\nDate: '+new Date().toISOString().slice(0,10)+'\n\n';
+  t+=TX.en.csvHead+'\n';
+  collect().forEach(function(x){var r=x.r;
+    t+=[x.g,x.line,x.name,x.unit,x.other?'':(P[x.id]?perEn(x.id):''),x.other?'':(x.none?'0':r.last),x.other?'':(x.none?'0':nv(r)),x.other?BANDS.en[+r.band]||'':'',r.pat,r.sup,(r.note||'').replace(/\n/g,' ')].join(' | ')+'\n';
+    if(x.id==='iod'&&!x.none) t+=iodText(r);
+    if(P.sam&&x.name===P.sam.name&&(r.sp1||r.sp2||r.sp3)) t+='   Sammibi split (packs/month, last 12 months): thyroid/parathyroid V09F='+r.sp1+'; heart V09G='+r.sp2+'; tumour V09I='+r.sp3+'\n';
+  });
+  if(S.general)t+='\nGeneral comments: '+S.general.replace(/\n/g,' ')+'\n';
+  return t;
+}
+function derive(){
+  var t=T();
+  var n=MAIN_IDS.filter(function(k){return done(row(k));}).length;
+  var o=OTHER_IDS.filter(function(k){return row(k).use;}).length+(S.customName.trim()?1:0);
+  document.getElementById('progTxt').textContent=n+' / '+MAIN_IDS.length+' '+t.answered+(o?' + '+o:'');
+  document.getElementById('progBar').style.width=Math.round(100*n/MAIN_IDS.length)+'%';
+  document.querySelectorAll('[data-card]').forEach(function(c){c.classList.toggle('done',done(row(c.getAttribute('data-card'))));});
+  var sb=document.getElementById('sumBody'); if(!sb)return;
+  sb.innerHTML=collect().map(function(x){
+    if(x.other) return '<tr><td>'+esc(x.name)+'</td><td class="r" colspan="2">'+esc(bandLabel(x.r)||t.empty)+'</td></tr>';
+    return '<tr><td>'+esc(x.name)+' <span class="small">('+perWord(x.id)+')</span></td><td class="r">'+esc(x.none?t.zero:(x.r.last||t.empty))+'</td><td class="r">'+esc(x.none?t.zero:(nv(x.r)||t.empty))+'</td></tr>';}).join('');
+  var miss=MAIN_IDS.filter(function(k){return !done(row(k));}).map(function(k){return NORDIC?P[k].name.split(' ')[0]:P[k].line;});
+  document.getElementById('missing').textContent=miss.length?t.missing+miss.join(', '):t.allDone;
+  document.getElementById('mail').href='mailto:'+FEEDBACK_TO+'?subject='+encodeURIComponent('Forecast form '+(NORDIC?'Nordic':'2624b')+' - '+(siteText().trim()||'customer'))+'&body='+encodeURIComponent(summaryText());
+}
+document.getElementById('bEn').onclick=function(){S.lang='en';build();};
+document.getElementById('bNo').onclick=function(){S.lang='no';build();};
+var app=document.getElementById('app');
+app.addEventListener('input',function(e){
+  var k=e.target.getAttribute('data-in'); if(!k||e.target.tagName==='SELECT')return;
+  var id=e.target.getAttribute('data-id');
+  if(id&&(k==='mbq'||k==='gbq')){var rr=row(id),v=num(e.target.value),o=document.getElementById(id+(k==='mbq'?'-gbq':'-mbq'));
+    rr[k]=e.target.value; var other=e.target.value.trim()===''?'':fmt(k==='mbq'?v/1000:v*1000); rr[k==='mbq'?'gbq':'mbq']=other; if(o)o.value=other;
+    var mg=document.getElementById(id+'-actmsg'); if(mg)mg.style.display=(rr.mbq===''?'':'none'); derive(); return;}
+  if(id){var r=row(id); if(k==='next'){r.same=false;r.next=e.target.value;var cb=app.querySelector('input[data-act=same][data-id="'+id+'"]');if(cb)cb.checked=false;} else r[k]=e.target.value;
+    if(k==='last'&&r.same){var ni=document.getElementById(id+'-next');if(ni)ni.value=r.last;}}
+  else {S[k]=e.target.value; if(k==='customName'){build();var c=document.getElementById('cust');c.focus();c.setSelectionRange(c.value.length,c.value.length);return;}}
+  derive();
+});
+app.addEventListener('change',function(e){
+  var k=e.target.getAttribute('data-in'), id=e.target.getAttribute('data-id');
+  if(e.target.tagName==='SELECT'){ if(id){row(id)[k]=e.target.value;derive();} else {S[k]=e.target.value;build();} return; }
+  if(e.target.getAttribute('data-act')==='same'){var r=row(id);r.same=e.target.checked;if(!r.same)r.next=r.last;var ni=document.getElementById(id+'-next');ni.disabled=r.same;ni.value=nv(r);derive();}
+});
+app.addEventListener('click',function(e){
+  var b=e.target.closest('[data-act]'); if(!b||b.tagName==='INPUT')return;
+  var a=b.getAttribute('data-act'), id=b.getAttribute('data-id');
+  if(a==='none'){row(id).none=!row(id).none;build();}
+  else if(a==='more'){row(id).more=!row(id).more;build();}
+  else if(a==='use'){row(id).use=!row(id).use;build();}
+  else if(a==='dday'||a==='uday'){var arr=row(id)[a==='dday'?'dDays':'uDays'],v1=b.getAttribute('data-v'),ix=arr.indexOf(v1);if(ix>=0)arr.splice(ix,1);else{arr.push(v1);arr.sort(function(x,y){return DAYS_EN.indexOf(x)-DAYS_EN.indexOf(y);});}build();}
+  else if(a==='inc'||a==='dec'){
+    var r=row(id),f=b.getAttribute('data-f'),step=parseFloat(b.getAttribute('data-step')),cur=num(f==='last'?r.last:nv(r));
+    var v=fmt(Math.max(0,cur+(a==='inc'?step:-step)));
+    if(f==='last'){r.last=v;document.getElementById(id+'-last').value=v;if(r.same)document.getElementById(id+'-next').value=v;}
+    else{r.same=false;r.next=v;var cb=app.querySelector('input[data-act=same][data-id="'+id+'"]');if(cb)cb.checked=false;var ni=document.getElementById(id+'-next');ni.disabled=false;ni.value=v;}
+    derive();
+  }
+  else if(a==='download'){var blob=new Blob([summaryText()],{type:'text/plain;charset=utf-8'});var x=document.createElement('a');x.href=URL.createObjectURL(blob);x.download='forecast_'+(NORDIC?'nordic':'2624b')+'.txt';x.click();}
+  else if(a==='copy'){try{navigator.clipboard.writeText(summaryText());var cb2=document.getElementById('copyBtn');cb2.textContent=T().copied;setTimeout(function(){cb2.textContent=T().copy;},2000);}catch(err){}}
+});
+build();
+</script>
+
+</body></html>
